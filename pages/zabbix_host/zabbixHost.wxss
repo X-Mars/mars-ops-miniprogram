@@ -55,13 +55,13 @@
 .table-row:active { background: #f0f4ff }
 
 .col-name { display: flex; flex-direction: column; justify-content: center; flex: 3; padding-right: 12rpx }
-.host-main { font-size: 28rpx; color: #111; font-weight: 600 }
+.host-main { font-size: 28rpx; color: #111; }
 .host-domain { font-size: 22rpx; color: #8b9198; margin-top: 6rpx }
 .col-ip { font-family: monospace; color: #5b5f65; font-size: 24rpx; margin-bottom: 6rpx }
 .col-group { color: #6f7780; font-size: 22rpx; margin-top: 4rpx }
 
 .col-cpu, .col-mem, .col-uptime { width: 100rpx; display: flex; flex-direction: column; align-items: center; justify-content: center }
-.col-cpu-count, .col-mem-total { color: #2b2f36; font-size: 26rpx; font-weight: 600 }
+.col-cpu-count, .col-mem-total { color: #2b2f36; font-size: 26rpx; }
 .col-cpu-usage, .col-mem-usage { color: #6b7178; font-size: 22rpx; margin-top: 6rpx }
 .col-uptime { color: #3b4046; font-size: 22rpx }
 
