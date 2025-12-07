@@ -1,0 +1,72 @@
+<!--pages/zabbix/zabbix.wxml-->
+<wxs module="utils">
+  var getSeverityText = function(severity) {
+    if (severity == 0) return '未分类';
+    if (severity == 1) return '信息';
+    if (severity == 2) return '警告';
+    if (severity == 3) return '一般严重';
+    if (severity == 4) return '严重';
+    if (severity == 5) return '灾难';
+    return '未知';
+  }
+
+  var getSeverityColor = function(severity) {
+    if (severity == 0) return '#97AAB3';
+    if (severity == 1) return '#7499FF';
+    if (severity == 2) return '#FFC859';
+    if (severity == 3) return '#FFA059';
+    if (severity == 4) return '#E97659';
+    if (severity == 5) return '#E45959';
+    return '#97AAB3';
+  }
+
+  module.exports = {
+    getSeverityText: getSeverityText,
+    getSeverityColor: getSeverityColor
+  }
+</wxs>
+  <t-pull-down-refresh
+    value="{{enable}}"
+    loadingTexts="{{['下拉刷新', '松手刷新', '正在刷新', '刷新完成']}}"
+    usingCustomNavbar
+    bind:refresh="refreshData"
+    bind:scroll="onScroll"
+  >
+    <scroll-view class="scrollarea" scroll-y type="list" refresher-enabled="{{true}}" refresher-triggered="{{loading}}" bindrefresherrefresh="refreshData">
+      <navigation-bar title="Zabbix" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+      <!-- 告警详情弹窗已迁移到独立页面 /pages/zabbix_problem/zabbixProblem -->
+      <!-- 主机列表与主机弹窗已迁移到独立页面 /pages/zabbix_host/zabbixHost -->
+      <view class="container">
+        <!-- 没有配置时的提示 -->
+        <view wx:if="{{!hasConfig}}" class="no-config">
+          <text class="no-config-text">请先在"我的"页面配置 Zabbix API</text>
+        </view>
+
+        <!-- 有配置时展示数据 -->
+        <view wx:else>
+          <view>
+            <!-- <text class="title">{{title}}</text> -->
+            <text class="update-time">更新时间: {{updateTime}}</text>
+          </view>
+        
+        <!-- 统计卡片 -->
+        <view class="stats-section">
+          <view class="stat-card" bindtap="onHostCardTap">
+            <view class="stat-number">{{hostCount}}</view>
+            <view class="stat-label">主机数量</view>
+            <view wx:if="{{hostsWithProblems.length > 0}}" class="stat-badge">{{hostsWithProblems.length}}</view>
+          </view>
+          
+          <view class="stat-card {{problemCount > 0 ? 'warning' : ''}}" bindtap="onProblemCardTap">
+            <view class="stat-number">{{problemCount}}</view>
+            <view class="stat-label">当前告警</view>
+          </view>
+        </view>
+
+        <!-- 所有主机列表已迁移到独立页面，点击“主机数量”统计卡以查看 -->
+
+        <!-- 当前告警列表已迁移到独立页面 /pages/zabbix_problem/zabbixProblem，点击“当前告警”卡以查看 -->
+      </view>
+    </view>
+  </scroll-view>
+</t-pull-down-refresh>

@@ -1,0 +1,10 @@
+/* pages/zabbix_problem/zabbixProblem.wxss */
+.container { padding: 0 20rpx }
+.host-item { display: flex; align-items: center; justify-content: space-between; padding: 18rpx 0; border-bottom: 1rpx solid #eee }
+.host-info { flex: 1 }
+.host-name { font-size: 30rpx; font-weight: 500 }
+.host-meta text { display: block; color: #666; margin-top: 8rpx }
+.severity-badge { padding: 6rpx 12rpx; border-radius: 8rpx; color: #fff }
+.popup-content { padding: 24rpx }
+.popup-title { font-size: 32rpx; font-weight: bold; margin-bottom: 12rpx }
+.popup-body text { display:block; margin: 8rpx 0 }

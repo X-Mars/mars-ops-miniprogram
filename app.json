@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/zabbix/zabbix",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/zabbix_host/zabbixHost",
+    "pages/zabbix_problem/zabbixProblem"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#667eea",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/zabbix/zabbix",
+        "text": "Zabbix",
+        "iconPath": "images/zabbix.png",
+        "selectedIconPath": "images/zabbix-active.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "我的",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/user-active.png"
+      }
+    ]
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

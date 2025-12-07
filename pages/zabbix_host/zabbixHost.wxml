@@ -1,0 +1,85 @@
+<!-- pages/zabbix_host/zabbixHost.wxml -->
+<wxs module="utils">
+	var getSeverityText = function(severity) {
+		if (severity == 0) return '未分类';
+		if (severity == 1) return '信息';
+		if (severity == 2) return '警告';
+		if (severity == 3) return '一般严重';
+		if (severity == 4) return '严重';
+		if (severity == 5) return '灾难';
+		return '未知';
+	}
+
+	var getSeverityColor = function(severity) {
+		if (severity == 0) return '#97AAB3';
+		if (severity == 1) return '#7499FF';
+		if (severity == 2) return '#FFC859';
+		if (severity == 3) return '#FFA059';
+		if (severity == 4) return '#E97659';
+		if (severity == 5) return '#E45959';
+		return '#97AAB3';
+	}
+
+	module.exports = {
+		getSeverityText: getSeverityText,
+		getSeverityColor: getSeverityColor
+	}
+</wxs>
+<scroll-view class="scrollarea" scroll-y>
+	<navigation-bar title="主机列表" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+	<t-popup visible="{{hostPopupVisible}}" placement="center" showOverlay bind:close="onHostPopupClose">
+		<view class="popup-content">
+			<view class="popup-title">主机：{{hostPopupData.name}}</view>
+			<view class="popup-body">
+				<text>IP：{{hostPopupData.ip}}</text>
+					<text>运行时间：{{hostPopupData.uptime}}</text>
+				<text>CPU核数：{{hostPopupData.cpuCount}}</text>
+				<text>总内存：{{hostPopupData.totalMemory}}</text>
+				<text>CPU使用率：{{hostPopupData.cpu}} %</text>
+				<text>内存使用率：{{hostPopupData.memory}} %</text>
+			</view>
+			<view class="popup-actions">
+				<t-button variant="base" bind:tap="onHostPopupClose">确定</t-button>
+			</view>
+		</view>
+	</t-popup>
+
+	<view class="container">
+		<view class="section-title">
+			<text>所有主机</text>
+			<text class="host-total">(共 {{allHosts.length}} 台)</text>
+		</view>
+
+		<view class="host-table">
+			<view class="table-header">
+				<text class="col-name">IP/主机/分组</text>
+				<text class="col-cpu">CPU</text>
+				<text class="col-mem">内存</text>
+				<text class="col-uptime">运行时间</text>
+				<text class="col-problem">告警</text>
+			</view>
+			<view class="table-body">
+				<view wx:for="{{allHosts}}" wx:for-item="item" wx:for-index="idx" wx:key="hostid" class="table-row" bindtap="onHostRowTap" data-idx="{{idx}}">
+					<view class="col-name">
+						<text class="col-ip">{{item.ip}}</text>
+						<text class="host-main">{{item.name}}</text>
+						<view class="col-group">{{item.displayGroups}}</view>
+					</view>
+					<view class="col-cpu">
+						<text class="col-cpu-count">{{item.cpuCount || '-'}}</text>
+						<text class="col-cpu-usage">{{item.cpu ? (item.cpu + ' %') : '-'}}</text>
+					</view>
+					<view class="col-mem">
+						<text class="col-mem-total">{{item.totalMemory || '-'}}</text>
+						<text class="col-mem-usage">{{item.memory ? (item.memory + ' %') : '-'}}</text>
+					</view>
+					<text class="col-uptime">{{item.uptime || '-'}}</text>
+					<view class="col-problem">
+						<view class="problem-badge {{item.problemCount > 0 ? 'has-problem' : ''}}">{{item.problemCount || 0}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</scroll-view>

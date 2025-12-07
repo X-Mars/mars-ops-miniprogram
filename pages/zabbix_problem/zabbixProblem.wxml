@@ -1,0 +1,69 @@
+<!-- pages/zabbix_problem/zabbixProblem.wxml -->
+<wxs module="utils">
+	var getSeverityText = function(severity) {
+		if (severity == 0) return '未分类';
+		if (severity == 1) return '信息';
+		if (severity == 2) return '警告';
+		if (severity == 3) return '一般严重';
+		if (severity == 4) return '严重';
+		if (severity == 5) return '灾难';
+		return '未知';
+	}
+
+	var getSeverityColor = function(severity) {
+		if (severity == 0) return '#97AAB3';
+		if (severity == 1) return '#7499FF';
+		if (severity == 2) return '#FFC859';
+		if (severity == 3) return '#FFA059';
+		if (severity == 4) return '#E97659';
+		if (severity == 5) return '#E45959';
+		return '#97AAB3';
+	}
+
+	module.exports = {
+		getSeverityText: getSeverityText,
+		getSeverityColor: getSeverityColor
+	}
+</wxs>
+
+<scroll-view class="scrollarea" scroll-y>
+	<navigation-bar title="当前告警" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+
+	<!-- 告警详情弹窗 -->
+	<t-popup visible="{{popupVisible}}" placement="center" showOverlay bind:close="onPopupClose">
+		<view class="popup-content">
+			<view class="popup-title">{{popupData.name}}</view>
+			<view class="popup-body">
+				<text>主机：{{popupData.hostname}}</text>
+				<text>最后值：{{popupData.lastvalue}}</text>
+				<text>严重性：{{utils.getSeverityText(popupData.severity)}} ({{popupData.severity}})</text>
+				<text>触发器ID：{{popupData.triggerid}}</text>
+				<text>问题ID：{{popupData.objectid}}</text>
+			</view>
+			<view class="popup-actions">
+				<t-button variant="base" bind:tap="onPopupClose">确定</t-button>
+			</view>
+		</view>
+	</t-popup>
+
+	<view class="container">
+		<view class="section-title">当前告警列表</view>
+		<view class="host-list">
+			<view wx:for="{{currentProblems}}" wx:for-item="item" wx:for-index="idx" wx:key="objectid" class="host-item" bindtap="onProblemTap" data-idx="{{idx}}">
+				<view class="host-info">
+					<text class="host-name">{{item.name}}</text>
+					<view class="host-meta">
+						<text class="host-lastvalue">最后的值：{{item.lastvalue}}</text>
+						<text class="host-id">告警主机：{{item.hostname}}</text>
+					</view>
+				</view>
+				<view class="host-problems">
+					<view class="problem-count">1</view>
+					<view class="severity-badge" style="background-color: {{utils.getSeverityColor(item.severity)}}">
+						{{utils.getSeverityText(item.severity)}}
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</scroll-view>

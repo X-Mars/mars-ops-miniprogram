@@ -1,0 +1,374 @@
+/* pages/zabbix/zabbix.wxss */
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+/* 强制页面内容横向填满屏幕，清除任何左右留白 */
+.full-width-force,
+.scrollarea,
+.container,
+.stats-section,
+.problem-hosts-section,
+.all-hosts-section,
+.no-config,
+.host-table,
+.host-list {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box;
+}
+
+/* 确保卡片和表格占满可用宽度（内部保留合适内边距） */
+.stat-card,
+.problem-hosts-section,
+.all-hosts-section,
+.no-config {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+/* 表格内部保留内间距，但不产生外边距 */
+.table-header,
+.table-row {
+  padding-left: 20rpx !important;
+  padding-right: 20rpx !important;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.container {
+  /* 覆盖全局 .container 带来的居中和内边距，确保本页内容不被约束 */
+  display: block !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  box-sizing: border-box;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40rpx 40rpx 30rpx;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.3);
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  text-align: left;
+  margin-bottom: 10rpx;
+}
+
+.update-time {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  text-align: left;
+  margin-bottom: 20rpx;
+  padding: 0;
+}
+
+/* 没有配置时的提示 */
+.no-config {
+  background-color: white;
+  border-radius: 0;
+  padding: 60rpx 0;
+  text-align: center;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.no-config-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 统计卡片 */
+.stats-section {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+  margin-top: 20rpx;
+  padding: 0;
+}
+
+.stat-card {
+  flex: 1;
+  background-color: white;
+  border-radius: 0;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-card.warning {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.stat-card.warning .stat-number,
+.stat-card.warning .stat-label {
+  color: white;
+}
+
+.stat-number {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 10rpx;
+}
+
+.stat-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.stat-badge {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+
+/* 告警主机列表 */
+.problem-hosts-section {
+  background-color: white;
+  border-radius: 0;
+  padding: 30rpx 0;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.host-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.host-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #fafafa;
+  border-radius: 0;
+  border-left: 4rpx solid #667eea;
+}
+
+.host-info {
+  flex: 1;
+}
+
+.host-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.host-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  align-items: flex-start;
+}
+
+.host-id {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.host-lastvalue {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.host-problems {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.problem-count {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff4d4f;
+  min-width: 50rpx;
+  text-align: right;
+}
+
+.severity-badge {
+  font-size: 20rpx;
+  color: white;
+  padding: 6rpx 12rpx;
+  border-radius: 8rpx;
+  white-space: nowrap;
+}
+
+/* 操作区域 */
+.action-section {
+  margin-bottom: 30rpx;
+}
+
+.refresh-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  border: none;
+}
+
+.refresh-btn[disabled] {
+  opacity: 0.6;
+}
+
+.refresh-btn::after {
+  border: none;
+}
+
+/* 所有主机列表 */
+.all-hosts-section {
+  background-color: white;
+  border-radius: 0;
+  padding: 30rpx 0;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.all-hosts-section .section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10rpx;
+}
+
+.host-total {
+  font-size: 24rpx;
+  color: #999;
+  font-weight: normal;
+}
+
+/* 主机表格 */
+.host-table {
+  margin-top: 20rpx;
+  border: 1rpx solid #f0f0f0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.table-header {
+  display: flex;
+  background-color: #fafafa;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  font-weight: bold;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.table-body {
+  max-height: 800rpx;
+  overflow-y: auto;
+}
+
+.table-row {
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  font-size: 24rpx;
+  color: #333;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row:active {
+  background-color: #f5f5f5;
+}
+
+/* Popup 样式 */
+.popup-content {
+  padding: 24rpx;
+  min-width: 520rpx;
+}
+.popup-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+.popup-body text {
+  display: block;
+  margin-bottom: 8rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+.popup-actions {
+  margin-top: 18rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.col-name {
+  flex: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-ip {
+  flex: 1.5;
+  text-align: center;
+}
+
+.col-group {
+  flex: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.col-problem {
+  flex: 0.8;
+  text-align: center;
+  color: #52c41a;
+}
+
+.col-problem.has-problem {
+  color: #ff4d4f;
+  font-weight: bold;
+}

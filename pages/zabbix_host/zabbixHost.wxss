@@ -1,0 +1,82 @@
+/* pages/zabbix_host/zabbixHost.wxss */
+.container {
+	padding: 0 20rpx;
+}
+.table-header, .table-row {
+	display: flex;
+	align-items: center;
+	padding: 16rpx 0;
+}
+.col-name { flex: 2 }
+.col-ip { flex: 1 }
+.col-group { flex: 1 }
+.col-problem { width: 80rpx; text-align: right }
+.popup-content { padding: 24rpx; }
+.popup-title { font-size: 32rpx; font-weight: bold; margin-bottom: 16rpx }
+.popup-body text { display: block; margin: 8rpx 0 }
+
+/* Improved host row styling */
+.table-row { padding: 12rpx 0; align-items: center }
+.col-name { display: flex; flex-direction: column; justify-content: center; flex: 2 }
+.host-main { font-size: 24rpx; color: #111 }
+.host-domain { font-size: 24rpx; color: #888; margin-top: 6rpx }
+.col-ip { font-family: monospace; color: #444; font-size: 26rpx }
+.col-group { color: #666; font-size: 24rpx }
+.problem-badge { display: inline-block; min-width: 48rpx; padding: 6rpx 10rpx; text-align: center; border-radius: 12rpx; background: #e0e0e0; color: #333 }
+.problem-badge.has-problem { background: #ff4d4f; color: #fff }
+
+/* CPU 列 */
+.col-cpu { width: 100rpx; display: flex; flex-direction: column; align-items: center; justify-content: center }
+.col-mem { width: 100rpx; display: flex; flex-direction: column; align-items: center; justify-content: center }
+.col-cpu-count, .col-mem-total { color: #333; font-size: 26rpx; }
+.col-cpu-usage, .col-mem-usage { color: #111; font-size: 24rpx; margin-top: 6rpx }
+.table-header .col-cpu, .table-header .col-mem { width: 100rpx; text-align: center }
+.table-header .col-uptime { width: 100rpx; text-align: center }
+.col-uptime { width: 100rpx; text-align: center; color: #333; font-size: 24rpx }
+
+/* 美化表格样式 */
+.host-table {
+	background: #ffffff;
+	border-radius: 12rpx;
+	overflow: hidden;
+	box-shadow: 0 6rpx 20rpx rgba(19,23,30,0.06);
+	border: 1rpx solid #eef2f6;
+}
+
+.table-header {
+	background: #f7f8fa;
+	padding: 18rpx 20rpx;
+	border-bottom: 1rpx solid #e9edf2;
+}
+.table-header text { font-weight: 700; color: #2b2f36; font-size: 26rpx }
+
+.table-row { padding: 16rpx 20rpx; align-items: center; transition: background 0.18s ease }
+.table-row:nth-child(even) { background: #fbfcfd }
+.table-row:active { background: #f0f4ff }
+
+.col-name { display: flex; flex-direction: column; justify-content: center; flex: 3; padding-right: 12rpx }
+.host-main { font-size: 28rpx; color: #111; font-weight: 600 }
+.host-domain { font-size: 22rpx; color: #8b9198; margin-top: 6rpx }
+.col-ip { font-family: monospace; color: #5b5f65; font-size: 24rpx; margin-bottom: 6rpx }
+.col-group { color: #6f7780; font-size: 22rpx; margin-top: 4rpx }
+
+.col-cpu, .col-mem, .col-uptime { width: 100rpx; display: flex; flex-direction: column; align-items: center; justify-content: center }
+.col-cpu-count, .col-mem-total { color: #2b2f36; font-size: 26rpx; font-weight: 600 }
+.col-cpu-usage, .col-mem-usage { color: #6b7178; font-size: 22rpx; margin-top: 6rpx }
+.col-uptime { color: #3b4046; font-size: 22rpx }
+
+.col-problem { width: 96rpx; text-align: right; padding-right: 12rpx }
+.problem-badge { display: inline-block; min-width: 44rpx; padding: 6rpx 10rpx; text-align: center; border-radius: 14rpx; background: #f3f5f7; color: #333; font-size: 22rpx }
+.problem-badge.has-problem { background: linear-gradient(180deg,#ff6b6b,#ff4d4f); color: #fff; box-shadow: 0 4rpx 12rpx rgba(255,77,79,0.15) }
+
+/* 让表格在小屏也能更好显示 */
+@media (max-width: 360px) {
+	.host-main { font-size: 26rpx }
+	.col-ip { font-size: 22rpx }
+	.col-cpu-count, .col-mem-total { font-size: 24rpx }
+}
+
+/* 统一表格内字体大小为 24rpx，使用覆盖确保常见子元素一致（避免通配符导致编译错误） */
+.host-table, .host-table text, .host-table view {
+	font-size: 24rpx !important;
+}

@@ -1,0 +1,115 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+  <navigation-bar title="我的" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+  <view class="container">
+    <view class="userinfo">
+      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
+        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+        </button>
+        <view class="nickname-wrapper">
+          <text class="nickname-label">昵称</text>
+          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
+        </view>
+      </block>
+      <block wx:elif="{{!hasUserInfo}}">
+        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
+      </block>
+      <block wx:else>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </block>
+    </view>
+    
+    <!-- Zabbix 配置区域 -->
+    <view class="zabbix-config">
+      <view class="config-header">
+        <text class="config-title">Zabbix 配置</text>
+        <button class="add-config-btn" bindtap="showAddConfig">新增配置</button>
+      </view>
+      
+      <!-- 配置列表 -->
+      <view class="config-list">
+        <block wx:if="{{configList.length > 0}}">
+          <view class="config-item" wx:for="{{configList}}" wx:key="id">
+            <view class="config-info">
+              <text class="config-name">{{item.name}}</text>
+              <text class="config-url">{{item.apiUrl}}</text>
+            </view>
+            <view class="config-actions">
+              <button class="action-btn edit" bindtap="showEditConfig" data-index="{{index}}">编辑</button>
+              <button class="action-btn delete" bindtap="deleteConfig" data-index="{{index}}">删除</button>
+              <button class="action-btn default" bindtap="setDefaultConfig" data-index="{{index}}">默认</button>
+            </view>
+          </view>
+        </block>
+        <view wx:else class="empty-tip">
+          <text>暂无配置，点击上方"新增配置"添加</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 配置弹窗 -->
+<view class="modal-mask" wx:if="{{showConfigModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">{{isEdit ? '编辑配置' : '新增配置'}}</text>
+      <view class="modal-close" bindtap="closeModal" wx:if="{{!isTesting}}">×</view>
+    </view>
+    
+    <view class="modal-body">
+      <view class="form-item">
+        <text class="form-label">配置名称</text>
+        <input 
+          class="form-input" 
+          placeholder="请输入配置名称" 
+          value="{{currentConfig.name}}"
+          bindinput="onConfigNameInput"
+        />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">API 地址</text>
+        <input 
+          class="form-input" 
+          placeholder="请输入Zabbix API地址" 
+          value="{{currentConfig.apiUrl}}"
+          bindinput="onApiUrlInput"
+        />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">Token</text>
+        <input 
+          class="form-input" 
+          placeholder="请输入Zabbix Token" 
+          value="{{currentConfig.token}}"
+          bindinput="onTokenInput"
+          password="{{true}}"
+        />
+      </view>
+    </view>
+    
+    <view class="modal-footer">
+      <button class="modal-btn cancel" bindtap="closeModal">取消</button>
+      <button 
+        wx:if="{{!testPassed}}" 
+        class="modal-btn test {{isTesting ? 'testing' : ''}}" 
+        bindtap="testConnection"
+        disabled="{{isTesting}}"
+      >
+        {{isTesting ? '测试中...' : '测试连接'}}
+      </button>
+      <button 
+        wx:if="{{testPassed}}" 
+        class="modal-btn confirm" 
+        bindtap="saveConfig"
+      >
+        保存
+      </button>
+    </view>
+  </view>
+</view>
